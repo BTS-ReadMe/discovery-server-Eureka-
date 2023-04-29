@@ -30,10 +30,21 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         
+    ## gradle caching - 빌드 시간 향상
+    - name: Gradle Caching
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+        
     
     ## create application-dev.properties
     - name: make application-dev.properties
-      if: contains(github.ref, 'develop') ## branch가 develop 일 때
+      if: contains(github.ref, 'develop') # branch가 develop 일 때
       run: |
         # spring의 resources 경로 이동
         cd ./src/main/resources

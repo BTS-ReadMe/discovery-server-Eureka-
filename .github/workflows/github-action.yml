@@ -35,7 +35,7 @@ jobs:
         
     ## Add the action/cache repository
     - name: Add the action/cache repository
-      uses: actions/cache@v3
+      uses: action/cache@v3
     
     ## create application-dev.properties
     - name: make application-dev.properties

@@ -49,6 +49,7 @@ jobs:
         cd ./src/main/resources
         touch ./application-dev.properties
         echo "${{ secrets.PROPERTIES_DEV }}" > ./application-dev.properties
+      shell: bash
         
     ## create appication-prod.properties
     - name: make application-prod.properties
@@ -57,6 +58,7 @@ jobs:
         cd ./src/main/resources
         touch ./application-prod.properties
         echo "${{ secrets.PROPERTIES_PROD }}" > ./application-prod.properties
+      shell: bash
 
     ## grant execute permission for gradlew
     - name: Grant execute permission for gradlew

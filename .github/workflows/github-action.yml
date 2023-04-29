@@ -46,9 +46,9 @@ jobs:
     - name: make application-dev.properties
       if: contains(github.ref, 'develop')
       run: |
-        cd ./src/main/resources
-        touch ./application-dev.properties
-        echo "${{ secrets.PROPERTIES_DEV }}" > ./application-dev.properties
+          cd ./src/main/resources
+          touch ./application-dev.properties
+          echo "${{ secrets.PROPERTIES_DEV }}" > ./application-dev.properties
       shell: bash
 
     ## create application-prod.properties

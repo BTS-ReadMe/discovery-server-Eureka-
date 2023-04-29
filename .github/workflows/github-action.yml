@@ -32,17 +32,6 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-        
-    ## gradle caching (필수x, 빌드시간 단축)
-    - name: Gradle  Caching
-      uses: action/cache@v3
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
     
     ## create application-dev.properties
     - name: make application-dev.properties

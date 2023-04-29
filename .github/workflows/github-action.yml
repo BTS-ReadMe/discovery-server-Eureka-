@@ -46,13 +46,8 @@ jobs:
     - name: make application-dev.properties
       if: contains(github.ref, 'develop') # branch가 develop 일 때
       run: |
-        # spring의 resources 경로 이동
         cd ./src/main/resources
-        
-        # application-dev.properties 파일 생성
         touch ./application-dev.properties
-        
-        # GitHub-Actions 에서 설정한 값을 application-dev.properties에 쓰기
         echo "${{ secrets.PROPERTIES_DEV }}" > ./application-dev.properties
         
     ## create appication-prod.properties

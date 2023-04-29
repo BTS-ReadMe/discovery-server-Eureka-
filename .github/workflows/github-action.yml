@@ -9,13 +9,9 @@ name: CI/CD
 
 on:
   push:
-    branches:
-      - main
-      - develop
+    branches: [ "main", "develop" ]
   pull_request:
-    branches:
-      - main
-      - develop
+    branches: [ "main", "develop" ]
 
 
 permissions:  
@@ -35,7 +31,7 @@ jobs:
         distribution: 'temurin'
         
     - name: Cache Gradle packages
-      uses: @actions/cache@v3
+      uses: actions/cache@v3
       with:
         path: ~/.gradle/caches
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}

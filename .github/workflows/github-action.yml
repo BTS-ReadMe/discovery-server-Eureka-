@@ -98,6 +98,8 @@ jobs:
         envs: GITHUB_SHA
         script: |
           sudo docker ps
+          sudo docker stop discovery-prod
+          sudo docker rm discovery-prod
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/discovery-prod
           sudo docker run -d --name discovery-prod -p 8761:8761 --network bts-network ${{ secrets.DOCKER_USERNAME }}/discovery-prod
           sudo docker image prune -f

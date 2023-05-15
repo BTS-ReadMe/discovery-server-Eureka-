@@ -42,22 +42,24 @@ jobs:
           ${{ runner.os }}-gradle-
         
     
-    ## create application-dev.properties
-    - name: make application-dev.properties
+    ## create application-dev.yml
+    - name: make application-dev.yml
       if: contains(github.ref, 'develop')
       run: |
+          mkdir ./src/main/resources
           cd ./src/main/resources
-          touch ./application-dev.properties
-          echo "${{ secrets.PROPERTIES_DEV }}" > ./application-dev.properties
+          touch ./application.yml
+          echo "${{ secrets.PROPERTIES_DEV }}" > ./application.yml
       shell: bash
 
-    ## create application-prod.properties
-    - name: make application-prod.properties
+    ## create application-prod.yml
+    - name: make application-prod.yml
       if: contains(github.ref, 'main')
       run: |
+          mkdir ./src/main/resources
           cd ./src/main/resources
-          touch ./application-prod.properties
-          echo "${{ secrets.PROPERTIES_PROD }}" > ./application-prod.properties
+          touch ./application.yml
+          echo "${{ secrets.PROPERTIES_PROD }}" > ./application.yml
       shell: bash
 
     ## grant execute permission for gradlew

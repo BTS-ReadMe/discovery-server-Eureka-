@@ -85,3 +85,19 @@ jobs:
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker build -f Dockerfile-dev -t ${{ secrets.DOCKER_REPO }}/discovery-dev .
           docker push ${{ secrets.DOCKER_REPO }}/discovery-dev
+          
+    ## deploy to production
+    - name: Deploy to prod
+      uses: appleboy/ssh-action@master
+      id: deploy-prod
+      if: contains(github.ref, 'main')
+      with:
+        host: ${{ secrets.HOST_EC2 }} # EC2 퍼블릭 IPv4 DNS
+        username: ubuntu
+        key: ${{ secrets.PRIVATE_KEY }}
+        envs: GITHUB_SHA
+        script: |
+          sudo docker ps
+          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/discovery-prod
+          sudo docker run -d --name discovery-prod -p 8761:8761 --network bts-network ${{ secrets.DOCKER_USERNAME }}/discovery-prod
+          sudo docker image prune -f
